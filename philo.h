@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:43:49 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/04/15 16:43:48 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:01:50 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include <pthread.h>
+#include <string.h>
 
 // data of dinner...
+
+struct s_philo;
 
 typedef struct s_data
 {
@@ -30,8 +33,11 @@ typedef struct s_data
 	int					die_time;
 	int					eat_time;
 	int					finihsed_eat;
-	int					finish;
+	int					finished;
+	int					dead;
+	t_philo				*philos;
 	pthread_mutex_t		lock;
+	pthread_mutex_t		msg;
 	pthread_mutex_t		*forks;
 }	t_data;
 
@@ -48,6 +54,10 @@ typedef struct s_philo
     int				eat_count;
 }		t_philo;
 
-int check_input(char **argv);
+int			check_input(char **argv);
+void		ft_init(t_data *data, char **argv, int argc);
+long long	get_time_in_ms(void);
+int			ft_atoi(char *str);
+void		error_msg(char *msg);
 
 #endif

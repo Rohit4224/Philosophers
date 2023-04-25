@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:13:09 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/04/15 16:43:52 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/04/25 16:17:49 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,45 @@ int check_input(char **argv)
 		i++;
 	}
 	return (0);
+}
+
+int		ft_atoi(char *str)
+{
+	int i;
+	int sign;
+	int result;
+
+	i = 0;
+	result = 0;
+	sign = 1;
+	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
+		i++;
+	if (str[i] == '-')
+	{
+		printf("Negative number Error");
+		exit(1);
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] != '\0' && (str[i] >= '0' && str[i] <= '9'))
+	{
+		result *= 10;
+		result += str[i] - 48;
+		i++;
+	}
+	return (result * sign);
+}
+
+long long	get_time_in_ms(void)
+{
+	struct timeval current_time;
+
+	gettimeofday(&current_time, NULL);
+	return ((current_time.tv_sec * 1000 + current_time.tv_usec / 1000));
+}
+
+void	error_msg(char *msg)
+{
+	printf("%s\n", msg);
+	exit ;
 }
