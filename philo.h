@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:43:49 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/04/25 17:01:50 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:27:31 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ struct s_philo;
 
 typedef struct s_data
 {
-	long long			creation_time;
+	long long			time_of_start;
 	int					nbr_philo;
 	int					nbr_2_eat;
 	int					sleep_time;
@@ -35,7 +35,7 @@ typedef struct s_data
 	int					finihsed_eat;
 	int					finished;
 	int					dead;
-	t_philo				*philos;
+	//	t_philo				*philos;
 	pthread_mutex_t		lock;
 	pthread_mutex_t		msg;
 	pthread_mutex_t		*forks;
@@ -56,8 +56,17 @@ typedef struct s_philo
 
 int			check_input(char **argv);
 void		ft_init(t_data *data, char **argv, int argc);
-long long	get_time_in_ms(void);
+long long	ft_time_in_ms(void);
 int			ft_atoi(char *str);
 void		error_msg(char *msg);
+void		ft_philo_threads(t_philo *philo, t_data *data);
+void		*routine_philo(void *info);
+void		finished_or_died(t_philo *philo, t_data *data);
+void		terminal_msg(t_data *info, int id, char *message);
+void		pause_time(t_data *info, long long wait_time);
+void		use_two_forks(t_philo *philo, t_data *info);
+void		sleep_and_think(t_philo *philo, t_data *info);
+
+
 
 #endif

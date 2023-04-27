@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:13:09 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/04/25 16:17:49 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:19:27 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		ft_atoi(char *str)
 	return (result * sign);
 }
 
-long long	get_time_in_ms(void)
+long long	ft_time_in_ms(void)
 {
 	struct timeval current_time;
 
@@ -78,5 +78,5 @@ long long	get_time_in_ms(void)
 void	error_msg(char *msg)
 {
 	printf("%s\n", msg);
-	exit ;
+	exit(1);
 }

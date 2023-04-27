@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:43:31 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/04/25 17:46:55 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:31:11 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	ft_init_data(t_data *data, char **argv, int argc)
 	data->die_time = ft_atoi(argv[2]);
 	data->eat_time = ft_atoi(argv[3]);
 	data->sleep_time = ft_atoi(argv[4]);
-	data->creation_time = get_time_in_ms();
+	data->time_of_start = ft_time_in_ms();
 	if (argc == 6)
 		data->nbr_2_eat = ft_atoi(argv[5]);
 	else
 		data->nbr_2_eat = 1;
 	if (data->die_time < 0 || data->eat_time < 0 || data->nbr_philo <= 0 || data->sleep_time < 0 || data->nbr_2_eat <= 0)
 		error_msg("Invalid Argument");
-	return ;    
+	return ;
 }
 
 void	ft_init_forks(t_data *data)
@@ -44,30 +44,32 @@ void	ft_init_forks(t_data *data)
 	}
 }
 
-void	ft_init_philo_info (t_data *data)
+void	ft_init_philo_info (t_philo **philo, t_data *data)
 {
 	int 	i;
 
 	i = 0;
-	data->philos = (t_philo *)malloc(sizeof(t_philo) * data->nbr_philo);
-	if (!(data->philos))
+	*philo = (t_philo *)malloc(sizeof(t_philo) * data->nbr_philo);
+	if (!(philo))
 		error_msg("Malloc Error");
 	while (i < data->nbr_philo)
 	{
-		data->philos[i].right = ((i + 1) % data->nbr_philo);
-		data->philos[i].id = i;
-		data->philos[i].info = data;
-		data->philos[i].left = i;
-		data->philos[i].eat_count = 0;
-		data->philos[i].last_eat = get_time_in_ms();
+		(*philo)[i].right = ((i + 1) % data->nbr_philo);
+		(*philo)[i].id = i;
+		(*philo)[i].info = data;
+		(*philo)[i].left = i;
+		(*philo)[i].eat_count = 0;
+		//(*philo)[i].last_eat = ft_time_in_ms();
 		i++;
 	}
 }
 
 void	ft_init(t_data *data, char **argv, int argc)
 {
+	t_philo *philo;
 	ft_init_data (data, argv, argc);
 	ft_init_forks (data);
-	ft_init_philo_info (data);
+	ft_init_philo_info (&philo, data);
+	ft_philo_threads(philo, data);
 }
 

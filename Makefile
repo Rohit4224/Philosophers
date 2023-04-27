@@ -6,20 +6,20 @@
 #    By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/15 14:05:30 by rkhinchi          #+#    #+#              #
-#    Updated: 2023/04/25 16:39:25 by rkhinchi         ###   ########.fr        #
+#    Updated: 2023/04/27 16:48:35 by rkhinchi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-SRCS			= main.c utilities.c ft_init.c 
+SRCS			= main.c utilities.c ft_init.c actions.c threads.c
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 LIBS			= -lpthread
 
-NAME			= philo_one
+NAME			= philo
 
 all:			$(NAME)
 
