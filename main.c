@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:11:43 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/04/27 17:54:11 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:02:39 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int main(int argc, char **argv)
     if (argc != 5 && argc != 6)
     {
         if (argc < 5)
-            printf("Atleast 5 arguments are needed\n");
+            error_msg("Atleast 5 arguments are needed");
         else if (argc > 6)
-            printf("only 6 arguments are needed\n");
+            error_msg("only 6 arguments are needed\n");
     }
     if (check_input(argv) != 0)
         printf("Enter the digit\n");
