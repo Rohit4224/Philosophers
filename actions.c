@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 16:04:22 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/04/27 17:55:30 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/02 21:06:30 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	use_two_forks(t_philo *philo, t_data *info)
 		terminal_msg(info, philo->id, "has taken fork");
 		terminal_msg(info, philo->id, "is eating");
 		philo->last_eat = ft_time_in_ms();
-		philo->eat_count = philo->eat_count + 1;
+		//philo->eat_count = philo->eat_count + 1;
 		pause_time(info, (long long)info->eat_time);
 		pthread_mutex_unlock(&(info->forks[philo->right]));
 	}

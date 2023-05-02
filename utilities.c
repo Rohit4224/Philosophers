@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:13:09 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/04/27 17:19:27 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/02 19:30:23 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int	check_digit(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if(!(str[i] >= 48 && str[i] <= 57))
+		if (!(str[i] >= 48 && str[i] <= 57))
 			return (1);
-		i++;		
+		i++;
 	}
 	return (0);
 }
 
-int check_input(char **argv)
+int	check_input(char **argv)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (argv[i])
@@ -40,11 +40,11 @@ int check_input(char **argv)
 	return (0);
 }
 
-int		ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
-	int i;
-	int sign;
-	int result;
+	int	i;
+	int	sign;
+	int	result;
 
 	i = 0;
 	result = 0;
@@ -69,7 +69,7 @@ int		ft_atoi(char *str)
 
 long long	ft_time_in_ms(void)
 {
-	struct timeval current_time;
+	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
 	return ((current_time.tv_sec * 1000 + current_time.tv_usec / 1000));

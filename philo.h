@@ -6,23 +6,23 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:43:49 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/04/27 17:27:31 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/02 21:51:09 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <pthread.h>
-#include <string.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <pthread.h>
+# include <string.h>
 
 // data of dinner...
 
-struct s_philo;
+struct	s_philo;
 
 typedef struct s_data
 {
@@ -35,9 +35,8 @@ typedef struct s_data
 	int					finihsed_eat;
 	int					finished;
 	int					dead;
-	//	t_philo				*philos;
 	pthread_mutex_t		lock;
-	pthread_mutex_t		msg;
+	//pthread_mutex_t		msg;
 	pthread_mutex_t		*forks;
 }	t_data;
 
@@ -46,12 +45,12 @@ typedef struct s_data
 typedef struct s_philo
 {
 	struct s_data	*info;
-    pthread_t		thread;
+	pthread_t		thread;
 	long long		last_eat;
-    int				id;
-    int				right;
-    int				left;
-    int				eat_count;
+	int				id;
+	int				right;
+	int				left;
+	int				eat_count;
 }		t_philo;
 
 int			check_input(char **argv);
