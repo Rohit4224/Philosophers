@@ -26,6 +26,6 @@ int	main(int argc, char **argv)
 	if (check_input(argv) != 0)
 		printf("Enter the digit\n");
 	memset(&data, 0, sizeof(t_data));
-	data.finished = 0;
+	//data.finished = 0;
 	ft_init(&data, argv, argc);
 }
