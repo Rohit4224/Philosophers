@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:43:49 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/02 21:51:09 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:49:15 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void		terminal_msg(t_data *info, int id, char *message);
 void		pause_time(t_data *info, long long wait_time);
 void		use_two_forks(t_philo *philo, t_data *info);
 void		sleep_and_think(t_philo *philo, t_data *info);
-
+void		threads_free(t_philo *philo, t_data *info);	
 
 
 #endif

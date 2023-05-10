@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:43:40 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/02 22:04:59 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:49:14 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_philo_threads(t_philo *philo, t_data *data)
 		pthread_join(philo[i].thread, NULL);
 		i++;
 	}
-	//threads_free(philo, data);
+	threads_free(philo, data);
 }
 
 void	*routine_philo(void *info)
@@ -41,9 +41,9 @@ void	*routine_philo(void *info)
 	philo = info;
 	data = philo->info;
 	if (philo->id % 2)
-		usleep(300);
+		usleep(1000);
 	else
-		usleep (10);
+		usleep (500);
 	while (!data->finished)
 	{
 		use_two_forks(philo, data);
@@ -53,7 +53,7 @@ void	*routine_philo(void *info)
 			data->finihsed_eat++;
 			break ;
 		}
-		philo->eat_count = philo->eat_count + 1;
+		//philo->eat_count = philo->eat_count + 1;
 		//write(1, "culo\n", 5);
 		sleep_and_think(philo, data);
 	}

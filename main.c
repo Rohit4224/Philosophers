@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:11:43 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/02 20:59:23 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:49:13 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ int	main(int argc, char **argv)
 	if (check_input(argv) != 0)
 		printf("Enter the digit\n");
 	memset(&data, 0, sizeof(t_data));
-	data.finished = 0;
+	//data.finished = 0;
 	ft_init(&data, argv, argc);
 }
