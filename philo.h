@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:43:49 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/10 17:49:15 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:33:09 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef struct s_data
 	int					finished;
 	int					dead;
 	pthread_mutex_t		lock;
-	//pthread_mutex_t		msg;
+	pthread_mutex_t		mutex;
+	//pthread_mutex_t		finished_mutex;
 	pthread_mutex_t		*forks;
 }	t_data;
 

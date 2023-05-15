@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:43:40 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/10 17:49:14 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:33:07 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,45 +44,141 @@ void	*routine_philo(void *info)
 		usleep(1000);
 	else
 		usleep (500);
-	while (!data->finished)
+	while (1)
 	{
-		use_two_forks(philo, data);
-		if (data->nbr_2_eat == philo->eat_count)
+		pthread_mutex_lock(&(data->mutex));
+		if (data->finished == 1)
 		{
-			//printf("nbr2eat = %d\n eatCout = %d ",data->nbr_2_eat, philo->eat_count);
-			data->finihsed_eat++;
+			pthread_mutex_unlock(&(data->mutex));
 			break ;
 		}
-		//philo->eat_count = philo->eat_count + 1;
-		//write(1, "culo\n", 5);
+		use_two_forks(philo, data);
+		philo->eat_count++;
+		if (data->nbr_2_eat != 0 && philo->eat_count == data->nbr_2_eat)
+		{
+			data->finihsed_eat++;
+			if (data->finihsed_eat == data->nbr_philo)
+				data->finished = 1;
+			pthread_mutex_unlock(&(data->mutex));
+			break ;
+		}
+		pthread_mutex_unlock(&(data->mutex));
 		sleep_and_think(philo, data);
 	}
 	return ((void *)0);
 }
+
 
 void	finished_or_died(t_philo *philo, t_data *data)
 {
 	int			i;
 	long long	current_time;
 
-	while (!data->finished)
+	while (1)
 	{
+		pthread_mutex_lock(&data->mutex);
+		if (data->finished == 1)
+		{
+			pthread_mutex_unlock(&data->mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&data->mutex);
+		pthread_mutex_lock(&data->mutex);
 		if ((data->nbr_2_eat != 0) && (data->nbr_philo == data->finihsed_eat))
 		{
 			data->finished = 1;
+			pthread_mutex_unlock(&data->mutex);
 			break ;
 		}
+		pthread_mutex_unlock(&data->mutex);
 		i = 0;
 		while (i < data->nbr_philo)
 		{
 			current_time = ft_time_in_ms();
+			pthread_mutex_lock(&data->mutex);
 			if ((current_time - philo[i].last_eat) >= data->die_time)
 			{
 				terminal_msg(data, i, "Died");
+				pthread_mutex_lock(&(data->lock));
 				data->finished = 1;
+				pthread_mutex_unlock(&data->mutex);
+				pthread_mutex_unlock(&data->lock);
 				break ;
 			}
+			pthread_mutex_unlock(&data->mutex);
 			i++;
 		}
 	}
 }
+
+/* void    *routine_philo(void *info)
+{
+	t_data		*data;
+	t_philo		*philo;
+
+	philo = info;
+	data = philo->info;
+	if (philo->id % 2)
+		usleep(1000);
+	else
+		usleep (500);
+	while (1)
+	{
+		pthread_mutex_lock(&(data->mutex)); // lock mutex
+		if (data->finished)
+		{
+			pthread_mutex_unlock(&(data->mutex)); // unlock mutex
+			break ;
+		}
+		use_two_forks(philo, data);
+		philo->eat_count++; // modify eat_count
+		if (data->nbr_2_eat != 0 && philo->eat_count == data->nbr_2_eat)
+		{
+			data->finihsed_eat++;
+			if (data->finihsed_eat == data->nbr_philo)
+				data->finished = 1; // modify finished
+			pthread_mutex_unlock(&(data->mutex)); // unlock mutex
+			break ;
+		}
+		pthread_mutex_unlock(&(data->mutex)); // unlock mutex
+		sleep_and_think(philo, data);
+	}
+	return ((void *)0);
+} */
+
+/* void	finished_or_died(t_philo *philo, t_data *data)
+{
+    int			i;
+    long long	current_time;
+
+    while (1)
+    {
+        pthread_mutex_lock(&data->finished_mutex);
+        if (data->finished) // Check if finished flag is set
+        {
+            pthread_mutex_unlock(&data->finished_mutex);
+            break ;
+        }
+        if ((data->nbr_2_eat != 0) && (data->nbr_philo == data->finihsed_eat))
+        {
+            data->finished = 1;
+            pthread_mutex_unlock(&data->finished_mutex);
+            break ;
+        }
+        i = 0;
+        while (i < data->nbr_philo)
+        {
+            current_time = ft_time_in_ms();
+            if ((current_time - philo[i].last_eat) >= data->die_time)
+            {
+                terminal_msg(data, i, "Died");
+                data->finished = 1;
+                pthread_mutex_unlock(&data->finished_mutex);
+                return ;
+            }
+            i++;
+        }
+        pthread_mutex_unlock(&data->finished_mutex);
+    }
+} */
+

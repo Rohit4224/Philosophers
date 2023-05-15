@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:43:31 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/10 17:49:12 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:33:07 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_init_data(t_data *data, char **argv, int argc)
 	if (data->die_time < 0 || data->eat_time < 0
 		|| data->nbr_philo <= 0 || data->sleep_time < 0)
 		error_msg("Invalid Argument");
-	if (argc == 6)
+	if (argc == 6 && data->nbr_philo != 1)
 	{
 		data->nbr_2_eat = ft_atoi(argv[5]);
 		if (data->nbr_2_eat == 0)
@@ -38,7 +38,9 @@ void	ft_init_forks(t_data *data)
 	int	i;
 
 	i = 0;
-	pthread_mutex_init(&(data->lock), NULL);
+	//pthread_mutex_init(&(data->lock), NULL);
+	pthread_mutex_init(&(data->mutex), NULL);
+	//pthread_mutex_init(&(data->finished_mutex), NULL);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nbr_philo);
 	if (!(data->forks))
 		error_msg("Malloc Error");
