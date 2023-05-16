@@ -6,7 +6,7 @@
 #    By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/15 14:05:30 by rkhinchi          #+#    #+#              #
-#    Updated: 2023/05/15 17:33:08 by rkhinchi         ###   ########.fr        #
+#    Updated: 2023/05/15 18:13:15 by rkhinchi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ clean:
 				$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean:			clean
-				$(RM) $(NAME)
+				$(RM) $(NAME) $(all)
 
 re:				fclean $(NAME)
 

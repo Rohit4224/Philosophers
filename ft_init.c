@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:43:31 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/15 17:33:07 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:11:52 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	ft_init_forks(t_data *data)
 	//pthread_mutex_init(&(data->lock), NULL);
 	pthread_mutex_init(&(data->mutex), NULL);
 	//pthread_mutex_init(&(data->finished_mutex), NULL);
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->nbr_philo);
+	data->forks = (pthread_mutex_t *)malloc
+		(sizeof(pthread_mutex_t) * data->nbr_philo + 1);
 	if (!(data->forks))
 		error_msg("Malloc Error");
 	while (i < data->nbr_philo)

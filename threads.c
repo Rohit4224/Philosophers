@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:43:40 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/15 17:33:07 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:11:54 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void	finished_or_died(t_philo *philo, t_data *data)
 				terminal_msg(data, i, "Died");
 				pthread_mutex_lock(&(data->lock));
 				data->finished = 1;
-				pthread_mutex_unlock(&data->mutex);
 				pthread_mutex_unlock(&data->lock);
+				pthread_mutex_unlock(&data->mutex);
 				break ;
 			}
 			pthread_mutex_unlock(&data->mutex);
