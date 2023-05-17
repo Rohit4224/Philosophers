@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:43:40 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/16 16:11:54 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:22:33 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	*routine_philo(void *info)
 	philo = info;
 	data = philo->info;
 	if (philo->id % 2)
-		usleep(1000);
+		usleep(1500);
 	else
-		usleep (500);
+		usleep (800);
 	while (1)
 	{
 		pthread_mutex_lock(&(data->mutex));
@@ -52,15 +52,20 @@ void	*routine_philo(void *info)
 			pthread_mutex_unlock(&(data->mutex));
 			break ;
 		}
+		pthread_mutex_unlock(&(data->mutex));
 		use_two_forks(philo, data);
-		philo->eat_count++;
+		if (data->nbr_philo == 1)
+			finished_or_died(philo, data);
+		pthread_mutex_lock(&(data->mutex));
 		if (data->nbr_2_eat != 0 && philo->eat_count == data->nbr_2_eat)
 		{
 			data->finihsed_eat++;
 			if (data->finihsed_eat == data->nbr_philo)
+			{
 				data->finished = 1;
-			pthread_mutex_unlock(&(data->mutex));
-			break ;
+				pthread_mutex_unlock(&(data->mutex));
+				break ;
+			}
 		}
 		pthread_mutex_unlock(&(data->mutex));
 		sleep_and_think(philo, data);
@@ -96,7 +101,7 @@ void	finished_or_died(t_philo *philo, t_data *data)
 		{
 			current_time = ft_time_in_ms();
 			pthread_mutex_lock(&data->mutex);
-			if ((current_time - philo[i].last_eat) >= data->die_time)
+			if ((current_time - philo[i].last_eat) > data->die_time)
 			{
 				terminal_msg(data, i, "Died");
 				pthread_mutex_lock(&(data->lock));

@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 16:04:22 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/16 16:11:54 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:22:34 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,23 @@
 
 void	use_two_forks(t_philo *philo, t_data *info)
 {
+	//pthread_mutex_lock(&(info->forks[philo->left]));
 	pthread_mutex_lock(&(info->forks[ft_check_fork(philo->left, philo->right)]));
 	terminal_msg(info, philo->id, "has taken fork");
 	if (info->nbr_philo != 1)
 	{
+		//pthread_mutex_lock(&(info->forks[philo->right]));
 		pthread_mutex_lock(&(info->forks[ft_check_fork01(philo->right, philo->left)]));
 		terminal_msg(info, philo->id, "has taken fork");
 		terminal_msg(info, philo->id, "is eating");
+		pthread_mutex_lock(&info->mutex);
 		philo->last_eat = ft_time_in_ms();
-		//philo->eat_count = philo->eat_count + 1;
+		pthread_mutex_unlock(&info->mutex);
+		philo->eat_count = philo->eat_count + 1;
 		pause_time(info, (long long)info->eat_time);
-		pthread_mutex_unlock(&(info->forks[philo->right]));
+		pthread_mutex_unlock(&(info->forks[ft_check_fork01(philo->right, philo->left)]));
 	}
-	pthread_mutex_unlock(&(info->forks[philo->left]));
+	pthread_mutex_unlock(&(info->forks[ft_check_fork(philo->left, philo->right)]));
 }
 
 void	terminal_msg(t_data *info, int id, char *message)
@@ -57,15 +61,20 @@ void	pause_time(t_data *info, long long wait_time)
 	long long	start;
 
 	start = ft_time_in_ms();
-	pthread_mutex_lock(&(info->lock));
-	while (!(info->finished))
+	while (1)
 	{
+		pthread_mutex_lock(&(info->mutex));
+		if(info->finished)
+		{
+			pthread_mutex_unlock(&(info->mutex));
+			break ;
+		}
+		pthread_mutex_unlock(&(info->mutex));
 		now = ft_time_in_ms();
 		if ((now - start) >= wait_time)
 			break ;
 		usleep(10);
 	}
-	pthread_mutex_unlock(&(info->lock));
 }
 
 void	threads_free(t_philo *philo, t_data *info)

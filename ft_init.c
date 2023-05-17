@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:43:31 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/16 16:11:52 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:22:32 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_init_philo_info(t_philo **philo, t_data *data)
 		(*philo)[i].id = i;
 		(*philo)[i].info = data;
 		(*philo)[i].eat_count = 0;
-		(*philo)[i].last_eat = ft_time_in_ms();
+		//(*philo)[i].last_eat = ft_time_in_ms();
 		i++;
 	}
 }
