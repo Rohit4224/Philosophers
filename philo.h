@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:43:49 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/17 17:22:34 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:03:58 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ void		sleep_and_think(t_philo *philo, t_data *info);
 void		threads_free(t_philo *philo, t_data *info);
 int			ft_check_fork01(int l, int r);
 int			ft_check_fork(int l, int r);
-
 
 #endif

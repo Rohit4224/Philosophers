@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:43:40 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/17 17:22:33 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:03:57 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	finished_or_died(t_philo *philo, t_data *data)
 			pthread_mutex_lock(&data->mutex);
 			if ((current_time - philo[i].last_eat) > data->die_time)
 			{
-				terminal_msg(data, i, "Died");
+				terminal_msg(data, i, "died");
 				pthread_mutex_lock(&(data->lock));
 				data->finished = 1;
 				pthread_mutex_unlock(&data->lock);
