@@ -6,25 +6,11 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:13:09 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/16 16:11:53 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:39:04 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	ft_check_fork(int l, int r)
-{
-	if (l < r)
-		return (l);
-	return (r);
-}
-
-int	ft_check_fork01(int l, int r)
-{
-	if (l < r)
-		return (r);
-	return (l);
-}
 
 int	check_digit(char *str)
 {

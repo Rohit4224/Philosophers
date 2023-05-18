@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:43:49 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/17 18:03:58 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:39:04 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_data
 	int					dead;
 	pthread_mutex_t		lock;
 	pthread_mutex_t		mutex;
-	//pthread_mutex_t		finished_mutex;
 	pthread_mutex_t		*forks;
 }	t_data;
 
@@ -55,18 +54,26 @@ typedef struct s_philo
 }		t_philo;
 
 int			check_input(char **argv);
+
+//initialization
 void		ft_init(t_data *data, char **argv, int argc);
+
+//threads & routine
+void		ft_philo_threads(t_philo *philo, t_data *data);
+void		finished_or_died(t_philo *philo, t_data *data);
+void		*routine_philo(void *info);
+void		threads_free(t_philo *philo, t_data *info);
+
+//actions
+void		use_two_forks(t_philo *philo, t_data *info);
+void		pause_time(t_data *info, long long wait_time);
+void		sleep_and_think(t_philo *philo, t_data *info);
+void		terminal_msg(t_data *info, int id, char *message);
+
+//utilities
 long long	ft_time_in_ms(void);
 int			ft_atoi(char *str);
 void		error_msg(char *msg);
-void		ft_philo_threads(t_philo *philo, t_data *data);
-void		*routine_philo(void *info);
-void		finished_or_died(t_philo *philo, t_data *data);
-void		terminal_msg(t_data *info, int id, char *message);
-void		pause_time(t_data *info, long long wait_time);
-void		use_two_forks(t_philo *philo, t_data *info);
-void		sleep_and_think(t_philo *philo, t_data *info);
-void		threads_free(t_philo *philo, t_data *info);
 int			ft_check_fork01(int l, int r);
 int			ft_check_fork(int l, int r);
 

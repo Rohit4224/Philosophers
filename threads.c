@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:43:40 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/17 18:03:57 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:39:02 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,68 @@ void	ft_philo_threads(t_philo *philo, t_data *data)
 	threads_free(philo, data);
 }
 
+void	priority_check(t_philo *philo)
+{
+	if (philo->id % 2)
+		usleep(1500);
+	else
+		usleep (800);
+}
+
+int	check_finished(t_data *data)
+{
+	pthread_mutex_lock(&(data->mutex));
+	if (data->finished == 1)
+	{
+		pthread_mutex_unlock(&(data->mutex));
+		return (1);
+	}
+	pthread_mutex_unlock(&(data->mutex));
+	return (0);
+}
+
+int	finishing_eating(t_philo *philo, t_data *data)
+{
+	pthread_mutex_lock(&(data->mutex));
+	if (data->nbr_2_eat != 0 && philo->eat_count == data->nbr_2_eat)
+	{
+		data->finihsed_eat++;
+		if (data->finihsed_eat == data->nbr_philo)
+		{
+			pthread_mutex_lock(&(data->lock));
+			data->finished = 1;
+			pthread_mutex_unlock(&(data->lock));
+			pthread_mutex_unlock(&(data->mutex));
+			return (1);
+		}
+	}
+	pthread_mutex_unlock(&(data->mutex));
+	return (0);
+}
+
+void	*routine_philo(void *info)
+{
+	t_data	*data;
+	t_philo	*philo;	
+
+	philo = info;
+	data = philo->info;
+	priority_check(philo);
+	while (1)
+	{
+		if (check_finished(data) == 1)
+			break ;
+		use_two_forks(philo, data);
+		if (data->nbr_philo == 1)
+			finished_or_died(philo, data);
+		if (finishing_eating(philo, data) == 1)
+			break ;
+		sleep_and_think(philo, data);
+	}
+	return ((void *)0);
+}
+
+/* 
 void	*routine_philo(void *info)
 {
 	t_data	*data;
@@ -62,7 +124,9 @@ void	*routine_philo(void *info)
 			data->finihsed_eat++;
 			if (data->finihsed_eat == data->nbr_philo)
 			{
+				pthread_mutex_lock(&(data->lock));
 				data->finished = 1;
+				pthread_mutex_unlock(&(data->lock));
 				pthread_mutex_unlock(&(data->mutex));
 				break ;
 			}
@@ -71,50 +135,7 @@ void	*routine_philo(void *info)
 		sleep_and_think(philo, data);
 	}
 	return ((void *)0);
-}
-
-
-void	finished_or_died(t_philo *philo, t_data *data)
-{
-	int			i;
-	long long	current_time;
-
-	while (1)
-	{
-		pthread_mutex_lock(&data->mutex);
-		if (data->finished == 1)
-		{
-			pthread_mutex_unlock(&data->mutex);
-			break ;
-		}
-		pthread_mutex_unlock(&data->mutex);
-		pthread_mutex_lock(&data->mutex);
-		if ((data->nbr_2_eat != 0) && (data->nbr_philo == data->finihsed_eat))
-		{
-			data->finished = 1;
-			pthread_mutex_unlock(&data->mutex);
-			break ;
-		}
-		pthread_mutex_unlock(&data->mutex);
-		i = 0;
-		while (i < data->nbr_philo)
-		{
-			current_time = ft_time_in_ms();
-			pthread_mutex_lock(&data->mutex);
-			if ((current_time - philo[i].last_eat) > data->die_time)
-			{
-				terminal_msg(data, i, "died");
-				pthread_mutex_lock(&(data->lock));
-				data->finished = 1;
-				pthread_mutex_unlock(&data->lock);
-				pthread_mutex_unlock(&data->mutex);
-				break ;
-			}
-			pthread_mutex_unlock(&data->mutex);
-			i++;
-		}
-	}
-}
+} */
 
 /* void    *routine_philo(void *info)
 {
@@ -186,4 +207,3 @@ void	finished_or_died(t_philo *philo, t_data *data)
         pthread_mutex_unlock(&data->finished_mutex);
     }
 } */
-

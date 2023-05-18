@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 16:04:22 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/17 18:03:58 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:39:03 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	use_two_forks(t_philo *philo, t_data *info)
 {
-	//pthread_mutex_lock(&(info->forks[philo->left]));
-	pthread_mutex_lock(&(info->forks[ft_check_fork(philo->left, philo->right)]));
+	pthread_mutex_lock(&(info->forks
+		[ft_check_fork(philo->left, philo->right)]));
 	terminal_msg(info, philo->id, "has taken fork");
 	if (info->nbr_philo != 1)
 	{
-		//pthread_mutex_lock(&(info->forks[philo->right]));
-		pthread_mutex_lock(&(info->forks[ft_check_fork01(philo->right, philo->left)]));
+		pthread_mutex_lock(&(info->forks
+			[ft_check_fork01(philo->right, philo->left)]));
 		terminal_msg(info, philo->id, "has taken fork");
 		terminal_msg(info, philo->id, "is eating");
 		pthread_mutex_lock(&info->mutex);
@@ -28,9 +28,11 @@ void	use_two_forks(t_philo *philo, t_data *info)
 		pthread_mutex_unlock(&info->mutex);
 		philo->eat_count = philo->eat_count + 1;
 		pause_time(info, (long long)info->eat_time);
-		pthread_mutex_unlock(&(info->forks[ft_check_fork01(philo->right, philo->left)]));
+		pthread_mutex_unlock(&(info->forks
+			[ft_check_fork01(philo->right, philo->left)]));
 	}
-	pthread_mutex_unlock(&(info->forks[ft_check_fork(philo->left, philo->right)]));
+	pthread_mutex_unlock(&(info->forks
+		[ft_check_fork(philo->left, philo->right)]));
 }
 
 void	terminal_msg(t_data *info, int id, char *message)
@@ -64,7 +66,7 @@ void	pause_time(t_data *info, long long wait_time)
 	while (1)
 	{
 		pthread_mutex_lock(&(info->mutex));
-		if(info->finished)
+		if (info->finished)
 		{
 			pthread_mutex_unlock(&(info->mutex));
 			break ;

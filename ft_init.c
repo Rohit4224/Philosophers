@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:43:31 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/17 18:03:56 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:38:58 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	ft_init_data(t_data *data, char **argv, int argc)
 		if (data->nbr_2_eat == 0)
 			error_msg("Invalid Argument");
 	}
-	/* else
-		data->nbr_2_eat = 1; */
 	return ;
 }
 
@@ -38,9 +36,7 @@ void	ft_init_forks(t_data *data)
 	int	i;
 
 	i = 0;
-	//pthread_mutex_init(&(data->lock), NULL);
 	pthread_mutex_init(&(data->mutex), NULL);
-	//pthread_mutex_init(&(data->finished_mutex), NULL);
 	data->forks = (pthread_mutex_t *)malloc
 		(sizeof(pthread_mutex_t) * data->nbr_philo + 1);
 	if (!(data->forks))
@@ -67,7 +63,6 @@ void	ft_init_philo_info(t_philo **philo, t_data *data)
 		(*philo)[i].id = i;
 		(*philo)[i].info = data;
 		(*philo)[i].eat_count = 0;
-		//(*philo)[i].last_eat = ft_time_in_ms();
 		i++;
 	}
 }
@@ -81,4 +76,3 @@ void	ft_init(t_data *data, char **argv, int argc)
 	ft_init_philo_info (&philo, data);
 	ft_philo_threads(philo, data);
 }
-
