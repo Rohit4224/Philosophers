@@ -6,7 +6,7 @@
 /*   By: rkhinchi <rkhinchi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:11:43 by rkhinchi          #+#    #+#             */
-/*   Updated: 2023/05/19 17:27:49 by rkhinchi         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:33:45 by rkhinchi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	check_input(char **argv)
 	}
 	return (0);
 }
-
 
 int	main(int argc, char **argv)
 {
